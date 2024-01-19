@@ -19,22 +19,25 @@
 from nomad.utils import get_logger
 from nomad.normalizing.normalizer import Normalizer
 from simulationworkflowschema import (
-    SinglePoint, GeometryOptimization, MolecularDynamics, Phonon,
-    Elastic
+    SinglePoint,
+    GeometryOptimization,
+    MolecularDynamics,
+    Phonon,
+    Elastic,
 )
 from nomad.datamodel import EntryArchive
 
 
 class SimulationWorkflowNormalizer(Normalizer):
-    '''
+    """
     This normalizer produces information specific to a simulation workflow.
-    '''
+    """
 
     def __init__(self, entry_archive: EntryArchive):
         super().__init__(entry_archive)
-        self._elastic_programs = ['elastic']
-        self._phonon_programs = ['phonopy']
-        self._molecular_dynamics_programs = ['lammps']
+        self._elastic_programs = ["elastic"]
+        self._phonon_programs = ["phonopy"]
+        self._molecular_dynamics_programs = ["lammps"]
 
     def _resolve_workflow(self):
         if not self.entry_archive.run:
@@ -65,8 +68,6 @@ class SimulationWorkflowNormalizer(Normalizer):
             # TODO decide if workflow should map to each run
             if len(self.entry_archive.run[-1].calculation) == 1:
                 workflow = SinglePoint()
-            else:
-                workflow = GeometryOptimization()
 
         return workflow
 
