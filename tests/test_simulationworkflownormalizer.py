@@ -20,8 +20,8 @@ import pytest
 
 from nomad.utils import get_logger
 from nomad.datamodel import EntryArchive, EntryMetadata
-from nomad.datamodel.metainfo.simulation.run import Run, Program
-from nomad.datamodel.metainfo.simulation.calculation import Calculation
+from runschema.run import Run, Program
+from runschema.calculation import Calculation
 from simulationworkflownormalizer import SimulationWorkflowNormalizer
 from simulationworkflowschema import (
     Elastic, MolecularDynamics, Phonon, SinglePoint, GeometryOptimization

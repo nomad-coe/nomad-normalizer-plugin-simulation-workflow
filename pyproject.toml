@@ -5,17 +5,18 @@ build-backend = "setuptools.build_meta"
 [project]
 name = 'nomad-normalizer-plugin-simulation-workflow'
 version = '1.0'
-description = 'Simulation workflow norma plugin for NOMAD.'
+description = 'Simulation workflow nomad plugin for NOMAD.'
 readme = "README.md"
 authors = [{ name = "The NOMAD Authors" }]
 license = { text = "Apache-2.0" }
 dependencies = [
     "nomad-lab[infrastructure]@git+https://github.com/nomad-coe/nomad.git@develop",
-    "nomad-schema-plugin-simulation-workflow@git+https://github.com/nomad-coe/nomad-schema-plugin-simulation-workflow.git@develop"
+    "nomad-schema-plugin-simulation-workflow@git+https://github.com/nomad-coe/nomad-schema-plugin-simulation-workflow.git@develop",
+    "nomad-schema-plugin-run@git+https://github.com/nomad-coe/nomad-schema-plugin-run.git@develop",
 ]
 
 [project.urls]
-homepage = "https://github.com/nomad-coe/nomad-normalizer-simulation-workflow-plugin"
+homepage = "https://github.com/nomad-coe/nomad-normalizer-plugin-simulation-workflow"
 
 [project.optional-dependencies]
 dev = [
