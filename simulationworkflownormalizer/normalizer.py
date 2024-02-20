@@ -35,9 +35,9 @@ class SimulationWorkflowNormalizer(Normalizer):
 
     def __init__(self, entry_archive: EntryArchive):
         super().__init__(entry_archive)
-        self._elastic_programs = ["elastic"]
-        self._phonon_programs = ["phonopy"]
-        self._molecular_dynamics_programs = ["lammps"]
+        self._elastic_programs = ['elastic']
+        self._phonon_programs = ['phonopy']
+        self._molecular_dynamics_programs = ['lammps']
 
     def _resolve_workflow(self):
         if not self.entry_archive.run:
