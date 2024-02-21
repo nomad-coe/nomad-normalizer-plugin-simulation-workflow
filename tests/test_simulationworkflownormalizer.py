@@ -24,7 +24,11 @@ from runschema.run import Run, Program
 from runschema.calculation import Calculation
 from simulationworkflownormalizer import SimulationWorkflowNormalizer
 from simulationworkflowschema import (
-    Elastic, MolecularDynamics, Phonon, SinglePoint, GeometryOptimization
+    Elastic,
+    MolecularDynamics,
+    Phonon,
+    SinglePoint,
+    GeometryOptimization,
 )
 
 
@@ -33,23 +37,25 @@ def entry_archive():
     return EntryArchive(metadata=EntryMetadata())
 
 
-@pytest.mark.parametrize('program_name, workflow_class', [
-    ('elastic', Elastic),
-    ('lammps', MolecularDynamics),
-    ('phonopy', Phonon)
-])
-def test_resolve_workflow_from_program_name(entry_archive, program_name, workflow_class):
+@pytest.mark.parametrize(
+    'program_name, workflow_class',
+    [('elastic', Elastic), ('lammps', MolecularDynamics), ('phonopy', Phonon)],
+)
+def test_resolve_workflow_from_program_name(
+    entry_archive, program_name, workflow_class
+):
     run = Run(program=Program(name=program_name))
     entry_archive.run.append(run)
     SimulationWorkflowNormalizer(entry_archive).normalize(get_logger(__name__))
     assert isinstance(entry_archive.workflow2, workflow_class)
 
 
-@pytest.mark.parametrize('n_calculations, workflow_class', [
-    (1, SinglePoint),
-    (3, GeometryOptimization)
-])
-def test_resolve_workflow_from_calculation(entry_archive, n_calculations, workflow_class):
+@pytest.mark.parametrize(
+    'n_calculations, workflow_class', [(1, SinglePoint), (3, GeometryOptimization)]
+)
+def test_resolve_workflow_from_calculation(
+    entry_archive, n_calculations, workflow_class
+):
     run = Run(calculation=[Calculation() for _ in range(n_calculations)])
     entry_archive.run.append(run)
     SimulationWorkflowNormalizer(entry_archive).normalize(get_logger(__name__))
