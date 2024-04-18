@@ -40,7 +40,7 @@ class SimulationWorkflowNormalizer(Normalizer):
         self._molecular_dynamics_programs = ['lammps']
 
     def _resolve_workflow(self, archive: EntryArchive):
-        if not self.entry_archive.run:
+        if not archive.run:
             return
 
         # resolve it from parser
@@ -66,7 +66,7 @@ class SimulationWorkflowNormalizer(Normalizer):
         if workflow is None:
             # workflow references always to the last run
             # TODO decide if workflow should map to each run
-            if len(self.entry_archive.run[-1].calculation) == 1:
+            if len(archive.run[-1].calculation) == 1:
                 workflow = SinglePoint()
             else:
                 workflow = GeometryOptimization()
