@@ -39,14 +39,14 @@ class SimulationWorkflowNormalizer(Normalizer):
         self._phonon_programs = ['phonopy']
         self._molecular_dynamics_programs = ['lammps']
 
-    def _resolve_workflow(self):
+    def _resolve_workflow(self, archive: EntryArchive):
         if not self.entry_archive.run:
             return
 
         # resolve it from parser
         workflow = None
         try:
-            program_name = self.entry_archive.run[-1].program.name
+            program_name = archive.run[-1].program.name
         except Exception:
             program_name = None
 
@@ -73,13 +73,13 @@ class SimulationWorkflowNormalizer(Normalizer):
 
         return workflow
 
-    def normalize(self, logger=None) -> None:
+    def normalize(self, archive: EntryArchive, logger=None) -> None:
         logger = logger if logger is not None else get_logger(__name__)
         super().normalize(logger)
 
-        # Do nothing if section_run is not present
-        if not self.entry_archive.run:
+        # Do nothing if run section is not present
+        if not archive.run:
             return
 
-        if not self.entry_archive.workflow2:
-            self.entry_archive.workflow2 = self._resolve_workflow()
+        if not archive.workflow2:
+            archive.workflow2 = self._resolve_workflow(archive)
