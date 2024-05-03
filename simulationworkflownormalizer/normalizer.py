@@ -33,20 +33,20 @@ class SimulationWorkflowNormalizer(Normalizer):
     This normalizer produces information specific to a simulation workflow.
     """
 
-    def __init__(self, entry_archive: EntryArchive):
-        super().__init__(entry_archive)
+    def __init__(self):
+        super().__init__()
         self._elastic_programs = ['elastic']
         self._phonon_programs = ['phonopy']
         self._molecular_dynamics_programs = ['lammps']
 
-    def _resolve_workflow(self):
-        if not self.entry_archive.run:
+    def _resolve_workflow(self, archive: EntryArchive):
+        if not archive.run:
             return
 
         # resolve it from parser
         workflow = None
         try:
-            program_name = self.entry_archive.run[-1].program.name
+            program_name = archive.run[-1].program.name
         except Exception:
             program_name = None
 
@@ -66,20 +66,20 @@ class SimulationWorkflowNormalizer(Normalizer):
         if workflow is None:
             # workflow references always to the last run
             # TODO decide if workflow should map to each run
-            if len(self.entry_archive.run[-1].calculation) == 1:
+            if len(archive.run[-1].calculation) == 1:
                 workflow = SinglePoint()
             else:
                 workflow = GeometryOptimization()
 
         return workflow
 
-    def normalize(self, logger=None) -> None:
+    def normalize(self, archive: EntryArchive, logger=None) -> None:
         logger = logger if logger is not None else get_logger(__name__)
-        super().normalize(logger)
+        super().normalize(archive, logger)
 
-        # Do nothing if section_run is not present
-        if not self.entry_archive.run:
+        # Do nothing if run section is not present
+        if not archive.run:
             return
 
-        if not self.entry_archive.workflow2:
-            self.entry_archive.workflow2 = self._resolve_workflow()
+        if not archive.workflow2:
+            archive.workflow2 = self._resolve_workflow(archive)
