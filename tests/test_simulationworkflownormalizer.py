@@ -46,7 +46,7 @@ def test_resolve_workflow_from_program_name(
 ):
     run = Run(program=Program(name=program_name))
     entry_archive.run.append(run)
-    SimulationWorkflowNormalizer(entry_archive).normalize(get_logger(__name__))
+    SimulationWorkflowNormalizer().normalize(entry_archive, get_logger(__name__))
     assert isinstance(entry_archive.workflow2, workflow_class)
 
 
@@ -58,5 +58,5 @@ def test_resolve_workflow_from_calculation(
 ):
     run = Run(calculation=[Calculation() for _ in range(n_calculations)])
     entry_archive.run.append(run)
-    SimulationWorkflowNormalizer(entry_archive).normalize(get_logger(__name__))
+    SimulationWorkflowNormalizer().normalize(entry_archive, get_logger(__name__))
     assert isinstance(entry_archive.workflow2, workflow_class)

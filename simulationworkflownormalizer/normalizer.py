@@ -75,7 +75,7 @@ class SimulationWorkflowNormalizer(Normalizer):
 
     def normalize(self, archive: EntryArchive, logger=None) -> None:
         logger = logger if logger is not None else get_logger(__name__)
-        super().normalize(logger)
+        super().normalize(archive, logger)
 
         # Do nothing if run section is not present
         if not archive.run:
