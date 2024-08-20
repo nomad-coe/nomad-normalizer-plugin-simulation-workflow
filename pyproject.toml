@@ -70,5 +70,5 @@ line-ending = "auto"
 [tool.setuptools.packages.find]
 include = ["simulationworkflownormalizer*"]
 
-[tool.setuptools.package-data]
-simulationworkflownormalizer = ["*/nomad_plugin.yaml"]
+[project.entry-points.'nomad.plugin']
+simulationworkflownormalizer = "simulationworkflownormalizer:simulationworkflow_normalizer_entry_point"

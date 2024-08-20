@@ -33,8 +33,8 @@ class SimulationWorkflowNormalizer(Normalizer):
     This normalizer produces information specific to a simulation workflow.
     """
 
-    def __init__(self):
-        super().__init__()
+    def __init__(self, **kwargs):
+        super().__init__(**kwargs)
         self._elastic_programs = ['elastic']
         self._phonon_programs = ['phonopy']
         self._molecular_dynamics_programs = ['lammps']

@@ -15,4 +15,21 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
-from .normalizer import SimulationWorkflowNormalizer
+from nomad.config.models.plugins import NormalizerEntryPoint
+
+
+class SimulationWorkflowNormalizerEntryPoint(NormalizerEntryPoint):
+    def load(self):
+        import simulationworkflownormalizer
+        from .normalizer import SimulationWorkflowNormalizer
+
+        simulationworkflownormalizer.SimulationWorkflowNormalizer = SimulationWorkflowNormalizer
+
+        return SimulationWorkflowNormalizer(**self.dict())
+
+
+simulationworkflow_normalizer_entry_point = SimulationWorkflowNormalizerEntryPoint(
+    name='SimulationWorkflowNormalizer',
+    description='Normalizer for the simulation workflow data.',
+)
+

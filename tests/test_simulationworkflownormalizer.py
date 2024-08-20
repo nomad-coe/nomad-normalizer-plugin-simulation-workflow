@@ -20,9 +20,9 @@ import pytest
 
 from nomad.utils import get_logger
 from nomad.datamodel import EntryArchive, EntryMetadata
+from nomad.normalizing import normalizers
 from runschema.run import Run, Program
 from runschema.calculation import Calculation
-from simulationworkflownormalizer import SimulationWorkflowNormalizer
 from simulationworkflowschema import (
     Elastic,
     MolecularDynamics,
@@ -31,6 +31,12 @@ from simulationworkflowschema import (
     GeometryOptimization,
 )
 
+simulationworkflownormalizer = None
+for normalizer in normalizers:
+    if normalizer.__name__ == 'SimulationWorkflowNormalizer':
+        simulationworkflownormalizer = normalizer
+
+assert simulationworkflownormalizer is not None
 
 @pytest.fixture()
 def entry_archive():
@@ -46,7 +52,8 @@ def test_resolve_workflow_from_program_name(
 ):
     run = Run(program=Program(name=program_name))
     entry_archive.run.append(run)
-    SimulationWorkflowNormalizer().normalize(entry_archive, get_logger(__name__))
+
+    simulationworkflownormalizer(entry_archive).normalize()
     assert isinstance(entry_archive.workflow2, workflow_class)
 
 
@@ -58,5 +65,5 @@ def test_resolve_workflow_from_calculation(
 ):
     run = Run(calculation=[Calculation() for _ in range(n_calculations)])
     entry_archive.run.append(run)
-    SimulationWorkflowNormalizer().normalize(entry_archive, get_logger(__name__))
+    simulationworkflownormalizer(entry_archive).normalize()
     assert isinstance(entry_archive.workflow2, workflow_class)
