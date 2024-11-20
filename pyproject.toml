@@ -1,10 +1,10 @@
 [build-system]
-requires = ["setuptools"]
+requires = ["setuptools>=61.0.0", "setuptools-scm>=8.0"]
 build-backend = "setuptools.build_meta"
 
 [project]
 name = "nomad-normalizer-plugin-simulation-workflow"
-version = "1.0"
+dynamic = ["version"]
 description = "Simulation workflow nomad plugin for NOMAD."
 readme = "README.md"
 authors = [{ name = "The NOMAD Authors" }]
@@ -70,6 +70,8 @@ line-ending = "auto"
 
 [tool.setuptools.packages.find]
 include = ["simulationworkflownormalizer*"]
+
+[tool.setuptools_scm]
 
 [project.entry-points.'nomad.plugin']
 simulationworkflownormalizer = "simulationworkflownormalizer:simulationworkflow_normalizer_entry_point"
