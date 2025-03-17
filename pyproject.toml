@@ -1,17 +1,17 @@
 [build-system]
-requires = ["setuptools"]
+requires = ["setuptools>=61.0.0", "setuptools-scm>=8.0"]
 build-backend = "setuptools.build_meta"
 
 [project]
 name = "nomad-normalizer-plugin-simulation-workflow"
-version = "1.0"
+dynamic = ["version"]
 description = "Simulation workflow nomad plugin for NOMAD."
 readme = "README.md"
 authors = [{ name = "The NOMAD Authors" }]
 license = { text = "Apache-2.0" }
 dependencies = [
     "nomad-lab>=1.3.6.dev1",
-    "nomad-schema-plugin-simulation-workflow@git+https://github.com/nomad-coe/nomad-schema-plugin-simulation-workflow.git@develop",
+    "nomad-schema-plugin-simulation-workflow>=1.0.1",
 ]
 
 [project.urls]
@@ -19,11 +19,12 @@ homepage = "https://github.com/nomad-coe/nomad-normalizer-plugin-simulation-work
 
 [project.optional-dependencies]
 dev = [
-    "mypy==1.0.1",
-    "pytest==3.10.0",
-    "pytest-timeout==1.4.2",
-    "pytest-cov==2.7.1",
-    "ruff==0.1.4",
+    'mypy==1.0.1',
+    'pytest>= 5.3.0, <8',
+    'pytest-timeout>=1.4.2',
+    'pytest-cov>=2.7.1',
+    'ruff>=0.6',
+    'typing-extensions>=4.12',
 ]
 
 [tool.ruff]
@@ -69,6 +70,8 @@ line-ending = "auto"
 
 [tool.setuptools.packages.find]
 include = ["simulationworkflownormalizer*"]
+
+[tool.setuptools_scm]
 
 [project.entry-points.'nomad.plugin']
 simulationworkflownormalizer = "simulationworkflownormalizer:simulationworkflow_normalizer_entry_point"
