@@ -20,8 +20,8 @@ from nomad.config.models.plugins import NormalizerEntryPoint
 
 class SimulationWorkflowNormalizerEntryPoint(NormalizerEntryPoint):
     def load(self):
-        import simulationworkflownormalizer
-        from .normalizer import SimulationWorkflowNormalizer
+        import simulationworkflownormalizer  # noqa
+        from .normalizer import SimulationWorkflowNormalizer  # noqa
 
         simulationworkflownormalizer.SimulationWorkflowNormalizer = SimulationWorkflowNormalizer
 
