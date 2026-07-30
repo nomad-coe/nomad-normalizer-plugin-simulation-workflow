@@ -43,6 +43,9 @@ class SimulationWorkflowNormalizer(Normalizer):
         if not archive.run:
             return
 
+        if hasattr(archive.run[-1], 'x_h5md_version'):
+            return MolecularDynamics()
+
         # resolve it from parser
         workflow = None
         try:
