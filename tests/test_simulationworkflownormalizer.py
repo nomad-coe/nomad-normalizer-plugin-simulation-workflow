@@ -28,7 +28,7 @@ from simulationworkflowschema import (
     MolecularDynamics,
     Phonon,
     SinglePoint,
-    GeometryOptimization,
+    SimulationWorkflow,
 )
 
 simulationworkflownormalizer = None
@@ -58,7 +58,7 @@ def test_resolve_workflow_from_program_name(
 
 
 @pytest.mark.parametrize(
-    'n_calculations, workflow_class', [(1, SinglePoint), (3, GeometryOptimization)]
+    'n_calculations, workflow_class', [(1, SinglePoint), (3, SimulationWorkflow)]
 )
 def test_resolve_workflow_from_calculation(
     entry_archive, n_calculations, workflow_class

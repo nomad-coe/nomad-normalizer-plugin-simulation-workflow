@@ -20,10 +20,10 @@ from nomad.utils import get_logger
 from nomad.normalizing.normalizer import Normalizer
 from simulationworkflowschema import (
     SinglePoint,
-    GeometryOptimization,
     MolecularDynamics,
     Phonon,
     Elastic,
+    SimulationWorkflow,
 )
 from nomad.datamodel import EntryArchive
 
@@ -69,7 +69,7 @@ class SimulationWorkflowNormalizer(Normalizer):
             if len(archive.run[-1].calculation) == 1:
                 workflow = SinglePoint()
             else:
-                workflow = GeometryOptimization()
+                workflow = SimulationWorkflow()
 
         return workflow
 

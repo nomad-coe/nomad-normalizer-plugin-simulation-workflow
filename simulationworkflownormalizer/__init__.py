@@ -23,7 +23,9 @@ class SimulationWorkflowNormalizerEntryPoint(NormalizerEntryPoint):
         import simulationworkflownormalizer  # noqa
         from .normalizer import SimulationWorkflowNormalizer  # noqa
 
-        simulationworkflownormalizer.SimulationWorkflowNormalizer = SimulationWorkflowNormalizer
+        simulationworkflownormalizer.SimulationWorkflowNormalizer = (
+            SimulationWorkflowNormalizer
+        )
 
         return SimulationWorkflowNormalizer(**self.dict())
 
@@ -32,4 +34,3 @@ simulationworkflow_normalizer_entry_point = SimulationWorkflowNormalizerEntryPoi
     name='SimulationWorkflowNormalizer',
     description='Normalizer for the simulation workflow data.',
 )
-
